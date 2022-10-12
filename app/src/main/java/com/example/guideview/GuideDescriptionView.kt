@@ -1,7 +1,6 @@
-package com.example.guidview
+package com.example.guideview
 
 import android.view.View
-import java.security.cert.TrustAnchor
 
 
 //설명이 들어갈 뷰의 빌더

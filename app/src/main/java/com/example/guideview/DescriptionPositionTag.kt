@@ -1,4 +1,4 @@
-package com.example.guidview
+package com.example.guideview
 
 enum class DescriptionPositionTag{
     POSITION_TOP,

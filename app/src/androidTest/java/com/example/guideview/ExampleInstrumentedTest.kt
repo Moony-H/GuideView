@@ -1,4 +1,4 @@
-package com.example.guidview
+package com.example.guideview
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

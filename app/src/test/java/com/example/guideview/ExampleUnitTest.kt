@@ -1,4 +1,4 @@
-package com.example.guidview
+package com.example.guideview
 
 import org.junit.Test
 
