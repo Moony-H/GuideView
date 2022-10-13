@@ -18,6 +18,7 @@ class GuideView:FrameLayout {
     }
 
     private lateinit var targetViews:Array<View>
+    private var targetPadding=arrayOf(20)
 
     private lateinit var descriptionViews:Array<GuideDescriptionView>
     private var targetIndex=-1
@@ -29,7 +30,14 @@ class GuideView:FrameLayout {
     }
 
 
-
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        if(targetPadding.size<targetViews.size){
+            targetPadding=Array(targetViews.size){
+                targetPadding[targetPadding.size-1]
+            }
+        }
+    }
 
     override fun onDraw(canvas: Canvas?) {
 
@@ -40,12 +48,15 @@ class GuideView:FrameLayout {
         }
 
         canvas?.let {
+
             if (targetIndex<=targetViews.size-1) {
                 val target = targetViews[targetIndex]
 
                 it.drawRoundRect(
-                    target.left.toFloat()-20, target.top.toFloat()-20,
-                    target.right.toFloat()+20, target.bottom.toFloat()+20, 30f,30f,erasePaint
+                    target.left.toFloat()-targetPadding[targetIndex],
+                    target.top.toFloat()-targetPadding[targetIndex],
+                    target.right.toFloat()+targetPadding[targetIndex],
+                    target.bottom.toFloat()+targetPadding[targetIndex], 30f,30f,erasePaint
                 )
 
 
@@ -92,6 +103,11 @@ class GuideView:FrameLayout {
 
     fun setTargetViews(views:Array<View>){
         targetViews=views
+
+    }
+
+    fun setTargetShadowPadding(paddings:Array<Int>){
+        targetPadding=paddings
     }
 
     fun setDescriptionViews(descriptions: Array<GuideDescriptionView>){
@@ -107,5 +123,4 @@ class GuideView:FrameLayout {
             (this.parent as ViewGroup?)?.removeView(this)
         }
     }
-
 }
