@@ -11,7 +11,10 @@ class GuideView:FrameLayout {
 
     private val erasePaint by lazy{
         Paint().apply{
+            //그래픽 그리는 모드
             xfermode=PorterDuffXfermode(PorterDuff.Mode.CLEAR)
+
+            //투명으로 그림
             color=Color.TRANSPARENT
             isAntiAlias=true
         }
@@ -20,6 +23,7 @@ class GuideView:FrameLayout {
     private lateinit var targetViews:Array<View>
     private var targetPadding=arrayOf(20)
 
+    //설명을 적는 뷰
     private lateinit var descriptionViews:Array<GuideDescriptionView>
     private var targetIndex=-1
     constructor(context: Context):this(context,null)
