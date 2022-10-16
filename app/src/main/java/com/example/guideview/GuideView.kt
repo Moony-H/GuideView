@@ -22,6 +22,7 @@ class GuideView:FrameLayout {
 
     private lateinit var targetViews:Array<View>
     private var targetPadding=arrayOf(20)
+    private var lightShape=GuideLightShape.SHAPE_RECT
 
     //설명을 적는 뷰
     private lateinit var descriptionViews:Array<GuideDescriptionView>
@@ -56,12 +57,7 @@ class GuideView:FrameLayout {
             if (targetIndex<=targetViews.size-1) {
                 val target = targetViews[targetIndex]
 
-                it.drawRoundRect(
-                    target.left.toFloat()-targetPadding[targetIndex],
-                    target.top.toFloat()-targetPadding[targetIndex],
-                    target.right.toFloat()+targetPadding[targetIndex],
-                    target.bottom.toFloat()+targetPadding[targetIndex], 30f,30f,erasePaint
-                )
+                drawShape(it,target)
 
 
             }else{
@@ -74,7 +70,7 @@ class GuideView:FrameLayout {
 
     private fun setDescriptionPosition(targetView:View, description:GuideDescriptionView){
         when(description.tag){
-            DescriptionPositionTag.POSITION_TOP->{
+            DescriptionPosition.POSITION_TOP->{
                 val desViewLp=description.view.layoutParams
                 //타겟이 되는 뷰의 위의 위치+ 자신의 높이 - 마진
                 description.view.y= (targetView.top-desViewLp.height).toFloat()-description.margin
@@ -82,21 +78,21 @@ class GuideView:FrameLayout {
                 this.addView(description.view)
             }
 
-            DescriptionPositionTag.POSITION_BOTTOM->{
+            DescriptionPosition.POSITION_BOTTOM->{
                 val desViewLp=description.view.layoutParams
                 description.view.y= (targetView.bottom).toFloat()+description.margin
                 description.view.x=(targetView.x+targetView.width/2)-(desViewLp.width*description.anchor)
                 this.addView(description.view)
             }
 
-            DescriptionPositionTag.POSITION_LEFT->{
+            DescriptionPosition.POSITION_LEFT->{
                 val desViewLp=description.view.layoutParams
                 description.view.x= (targetView.left-desViewLp.width).toFloat()-description.margin
                 description.view.y=(targetView.y+targetView.height/2)-(desViewLp.height*description.anchor)
                 this.addView(description.view)
             }
 
-            DescriptionPositionTag.POSITION_RIGHT->{
+            DescriptionPosition.POSITION_RIGHT->{
                 val desViewLp=description.view.layoutParams
                 description.view.x= (targetView.right).toFloat()+description.margin
                 description.view.y=(targetView.y+targetView.height/2)-(desViewLp.height*description.anchor)
@@ -126,5 +122,37 @@ class GuideView:FrameLayout {
         }else{
             (this.parent as ViewGroup?)?.removeView(this)
         }
+    }
+
+    private fun drawShape(canvas: Canvas,target:View){
+        when(lightShape){
+            GuideLightShape.SHAPE_RECT->{
+                canvas.drawRect(
+                    target.left.toFloat()-targetPadding[targetIndex],
+                    target.top.toFloat()-targetPadding[targetIndex],
+                    target.right.toFloat()+targetPadding[targetIndex],
+                    target.bottom.toFloat()+targetPadding[targetIndex],erasePaint
+                )
+            }
+            GuideLightShape.SHAPE_RECT_ROUND->{
+                canvas.drawRoundRect(
+                    target.left.toFloat()-targetPadding[targetIndex],
+                    target.top.toFloat()-targetPadding[targetIndex],
+                    target.right.toFloat()+targetPadding[targetIndex],
+                    target.bottom.toFloat()+targetPadding[targetIndex], 30f,30f,erasePaint
+                )
+            }
+            GuideLightShape.SHAPE_OVAL->{
+                canvas.drawOval(
+                    target.left.toFloat()-targetPadding[targetIndex],
+                    target.top.toFloat()-targetPadding[targetIndex],
+                    target.right.toFloat()+targetPadding[targetIndex],
+                    target.bottom.toFloat()+targetPadding[targetIndex],erasePaint
+                )
+            }
+        }
+    }
+    private fun setLightShape(shape: GuideLightShape){
+        this.lightShape=shape
     }
 }

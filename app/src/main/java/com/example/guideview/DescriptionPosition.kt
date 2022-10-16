@@ -1,6 +1,6 @@
 package com.example.guideview
 
-enum class DescriptionPositionTag{
+enum class DescriptionPosition{
     POSITION_TOP,
     POSITION_BOTTOM,
     POSITION_LEFT,

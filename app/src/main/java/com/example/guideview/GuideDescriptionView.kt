@@ -5,7 +5,7 @@ import android.view.View
 
 //설명이 들어갈 뷰의 빌더
 class GuideDescriptionView private constructor(
-    val tag:DescriptionPositionTag,
+    val tag:DescriptionPosition,
     val anchor:Float,
     val margin:Float,
     val view: View
@@ -13,12 +13,12 @@ class GuideDescriptionView private constructor(
 
 
     class Builder(private val view: View) {
-        private var tag = DescriptionPositionTag.POSITION_BOTTOM
+        private var tag = DescriptionPosition.POSITION_BOTTOM
         private var anchor = 0.5f
         private var margin = 0f
 
         //오른쪽 왼쪽 위 아래 선택하여 tag 주기
-        fun setDescriptionTag(tag: DescriptionPositionTag): Builder {
+        fun setDescriptionTag(tag: DescriptionPosition): Builder {
             this.tag = tag
             return this
         }
